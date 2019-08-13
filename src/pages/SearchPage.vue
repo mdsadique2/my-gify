@@ -7,8 +7,8 @@
         <div class="category" v-if="showCategory">
           <div class="title">Available Categories:</div>
           <div>
-            <div class="displayInlineBlock" v-for="(category, index) in categories" >
-              <span class="tags left clickBg" @click="getGifForCategory(category)">{{category.name}}</span>
+            <div class="displayInlineBlock" v-bind:key="index" v-for="(category, index) in categories" >
+              <span class="tags left clickBg"  @click="getGifForCategory(category)">{{category.name}}</span>
               <i class="tags right clickBg fas fa-caret-down" @click="selectCategory(index)"></i>
             </div>
           </div>
@@ -19,7 +19,7 @@
             Subategories for <strong>'{{selectedCategory.name}}'</strong>:
           </div>
           <div>
-            <button class="tags clickBg" v-for="(subCategory, index) in selectedCategory.subcategories" @click="selectSubCategory(index)">{{subCategory.name}}</button>
+            <button v-bind:key="index" class="tags clickBg" v-for="(subCategory, index) in selectedCategory.subcategories" @click="selectSubCategory(index)">{{subCategory.name}}</button>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@ export default {
       this.showCategory = true;
     },
 
-    resetCategoryPanelHeight (type, value) {
+    resetCategoryPanelHeight (type) {
       if (!this.categoryPanel) {
         this.categoryPanel = (document.getElementsByClassName('categoryPanel'))[0];
       }
@@ -196,8 +196,7 @@ export default {
       .then((response) => {
         this.categories = response.data;
       })
-      .catch((err) => {
-
+      .catch(() => {
       })
     },
 
@@ -224,7 +223,7 @@ export default {
         this.responseData = response;
         this.stopLoader();
       })
-      .catch((err) => {
+      .catch(() => {
         this.stopLoader();
       })
 
@@ -258,7 +257,7 @@ export default {
         this.responseData = response;
         this.stopLoader();
       })
-      .catch((err) => {
+      .catch(() => {
         this.stopLoader();
       })
     },
@@ -289,7 +288,7 @@ export default {
           this.responseData = response;
           this.stopLoader();
       })
-      .catch((err) => {
+      .catch(() => {
         this.stopLoader();
       })
     },
@@ -311,7 +310,7 @@ export default {
         this.responseData = response;
         this.stopLoader();
       })
-      .catch((err) => {
+      .catch(() => {
         this.stopLoader();
       })
     }
